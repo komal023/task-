@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content  %}
+
+<section class="banner-bottom">
+		<!--/blog-->
+		<div class="container">
+			<div class="row">
+			{% for slug in data %}
+				<!--left-->
+				<div class="left-blog-info-w3layouts-agileits text-left">
+					<div class="blog-grid-top">
+						<div class="b-grid-top">
+							<div class="blog_info_left_grid"><br>
+								<a href="">
+									<img src="/media/{{slug.cat_image}}" class="img-fluid" alt=""height="50%">
+								</a>
+							</div>
+							<div class="blog-info-middle">
+								<ul>
+									<span>
+										<a href="#">
+											<i class='fas fa-calendar-alt' style='font-size:15px; margin-left:20px; color:#3385ff'> {{slug.created_at}}</i><br><br>
+									</span>
+								</ul>
+							</div>
+						</div>
+                        <h3>
+							<a href="">{{slug.cat_breed}}</a>
+						</h3>
+						<p>{{slug.cat_desc }}</p>
+					</div>
+					{% endfor %}
+
+				</div>
+            </div>
+		</div>
+	</section>
+    {% endblock %}

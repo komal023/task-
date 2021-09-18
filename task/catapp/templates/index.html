@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content  %}
+ 
+<div class="container">
+ <div class="col-md-12 shadow mx-auto p-4 mt-5 ">
+ <span>{% include 'messages.html'  %}</span>
+ <div class="alert alert-info"><h2>Cat management system</h2>
+
+ </div>
+  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal" style="float:right">
+  Add New Cat
+</button>
+
+<br>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Cat id</th>
+        <th>Cat Name</th>
+        <th>Cat breed</th>
+        <th>Description</th>
+        <th>Images</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for cat in data %}
+      <tr>
+        <td>{{cat.cat_id}}</td>
+        <td>{{cat.cat_name}}</td>
+        <td>{{cat.cat_breed}}</td>
+        <td>{{cat.cat_desc| truncatechars:40}}</td>
+        <td><img class="card-img-top" src="/media/{{cat.cat_image}}" alt="" style="width:100px"></td>
+        <td><a href="/edit/{{cat.cat_id}}/"><button type="button" class="btn btn-success" >
+        Edit</button></a></td>
+        <td><a href="/delete/{{cat.cat_id}}"><button type="button" class="btn btn-danger"onclick="return confirm('Are you sure you want to delete?');">
+        Delete</button></a></td>
+        <td><a href="/view/{{cat.cat_id}}"><button type="button" class="btn btn-info">
+        View</button></a></td>
+      </tr>
+     {% endfor %}
+    </tbody>
+  </table>
+</div>
+  </div>
+
+  <!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="alert alert-warning">
+        <h4 class="modal-title">Add New Cat</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form action="/add/" method="POST" enctype="multipart/form-data">
+       {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Cat Name</label>
+            <input type="text" class="form-control" placeholder="Enter Cat Name" id="catname" name="catname" required>
+        </div>
+        <div class="form-group">
+            <label for="catbreed">Cat breed</label>
+            <select class="form-control" name="catbreed" required>
+             <option>Select option</option>
+            <option value="Billy">Billy</option>
+            <option value="Persian Cats">Persian Cats</option>
+            <option value="American Curl Cats">American Curl Cats</option>
+            <option value="Mumbai Cats">Mumbai Cats</option>
+            <option value="Munchkin Cats">Munchkin Cats</option>
+            
+            </select>
+    
+        </div>
+        <div class="form-group">
+            <label for="name">Cat Description</label>
+            <input type="text" class="form-control" placeholder="Enter Cat Description" id="catdesc" name="catdesc" required>
+        </div>
+        <div class="form-group">
+            <label for="name">Cat Image</label>
+            <input type="file" class="form-control" id="catimage" name="catimage" required>
+        </div>
+    
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-warning" value="Add">
+      </div>
+ </form>
+    </div>
+  </div>
+</div>
+
+ {% endblock %}

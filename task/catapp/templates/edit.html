@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content  %}
+
+
+{% for data in data%}
+ <!-- The Modal -->
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="alert alert-success">
+        <h4 class="modal-title">Update Cat</h4>
+        
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form action="/update/{{data.cat_id}}/" method="POST" enctype="multipart/form-data">
+       {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Cat Name</label>
+            <input type="text" class="form-control" placeholder="Enter Cat Name" id="catname" name="catname"value="{{data.cat_name}}">
+        </div>
+        <div class="form-group">
+            <label for="catbreed">Cat breed</label>
+            <select class="form-control" name="catbreed" >
+             <option value="">{{data.cat_breed}}</option>
+            <option value="Billy">Billy</option>
+            <option value="Persian Cats">Persian Cats</option>
+            <option value="American Curl Cats">American Curl Cats</option>
+            <option value="Mumbai Cats">Mumbai Cats</option>
+            <option value="Munchkin Cats">Munchkin Cats</option>
+        </select>
+    
+        </div>
+        <div class="form-group">
+            <label for="name">Cat Description</label>
+            <input type="text" class="form-control" placeholder="Enter Cat Description" id="catdesc" name="catdesc" value="{{data.cat_desc}}">
+        </div>
+        <div class="form-group">
+            <label for="name">Cat Image</label>
+            <input type="file" class="form-control-file" id="catimage" name="catimage" value="{{data.cat_image.url}}">
+            {% if data.cat_image %}
+      <img class="card-img-top" src="{{data.cat_image.url}}" alt="Card image cap" style="width:150px;">
+      {% endif %}
+        </div>
+    
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-success" value="Update">
+      </div>
+ </form>
+ {% endfor %}
+    </div>
+  </div>
+   {% endblock %}
